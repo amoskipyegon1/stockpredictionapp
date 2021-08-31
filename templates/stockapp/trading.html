@@ -1,0 +1,130 @@
+{% load static %}
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+        <meta name="generator" content="Hugo 0.84.0">
+        <title>Trade yoo </title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/headers/">
+        <link href="{% static "/assets/dist/css/bootstrap.min.css" %}" rel="stylesheet">
+        <style>
+            .bd-placeholder-img {
+
+                font-size: 1.125rem;
+                text-anchor: middle;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+            }
+      
+            @media (min-width: 768px) {
+                .bd-placeholder-img-lg {
+                    font-size: 3.5rem;
+                }
+            }
+        </style>
+        <link href="{% static "assets/dist/headers.css" %}" rel="stylesheet">
+    </head>
+    <body>
+        <header class="p-3 bg-dark text-white mb-4">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+                    </a>
+        
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="{% url 'home' %}" class="nav-link px-2 text-primay">Home</a></li>
+                        <li><a href="{% url 'trade' %}" class="nav-link px-2 text-secondary">Trade</a></li>
+                        
+                        <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+                    </ul>
+        
+                    <div class="text-end">
+                        <p>Welcome {{ user.username }} </p>
+                        <a class="btn btn-primary" href="{% url 'login' %}"role="button">Login</a>
+                        <a class="btn btn-warning" href="{% url 'signin' %}"role="button">Sign-in</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div class="container-md bg-light">
+            <figure class=" text-center figure mb-4">
+                <img src="{% static '/stockindex.jpg' %}" class="figure-img img-fluid rounded" style='max-width: 100%;' alt="stocks_graph">
+                <figcaption class="figure-caption text-end">A caption for the above image.</figcaption>
+            </figure>
+            <div class="bd-example">
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Hey!</h4>
+                    <p>Are you willing to lose money on a trade? If not, then don't take it. You can only win if you're not afraid to lose. And you can only do that if you truly accept the risks in front of you.</p>
+                </div>
+            </div>
+
+            <form method="POST" class="row gy-2 gx-3 align-items-center mb-4">
+                {% csrf_token %}
+                
+                <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            {% render_field forms.first_day class="form-control" id="floatingInputGrid" placeholder="first_close" value="00.0" %}
+                            <label for="floatingInputGrid">first close value</label>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            {% render_field forms.second_day class="form-control" id="floatingInputGrid" placeholder="second_close" value="00.0" %}
+                            <label for="floatingInputGrid">second close value</label>
+                        </div>
+                    </div>
+                    <div class="row g-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            {% render_field forms.third_day class="form-control" id="floatingInputGrid" placeholder="third_close" value="00.0" %}
+                            <label for="floatingInputGrid">third close value</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>    
+        </div>
+        <div class="alert alert-info" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+                  
+        </div>
+        <form method="POST" class="row g-1">
+            {% csrf_token %}
+            <div class="form-floating">
+                {% render_field rates.comments class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" %}
+                <label for="floatingTextarea2">Comments</label>
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </div>
+        </form>
+        <script src="{% static "/assets/dist/js/bootstrap.bundle.min.js" %}"></script>
+        <footer class="blog-footer">
+            <p>Blog template built for <a href="https://getbootstrap.com/">Bootstrap</a> by <a href="https://twitter.com/Ditto1">Ditto</a>.</p>
+            
+        </footer>
+    </body>
+
+</html>
